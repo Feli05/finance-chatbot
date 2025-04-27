@@ -1,7 +1,8 @@
 # Repositorio para la Practica de SBC
 
-## Tech Stack
+Tech Stack:
 
 - Next.js (App Router)
 - shadcn
 - Tailwind CSS
+- Vercel para deployment
