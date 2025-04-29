@@ -19,9 +19,6 @@ RUN pip install -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Create directory for models
-RUN mkdir -p /app/models
-
 # Expose the port the app runs on
 EXPOSE ${ML_PORT}
 

@@ -47,8 +47,6 @@ function PureMultimodalInput({
       const finalValue = domValue || localStorageInput || '';
       setInput(finalValue);
     }
-    // Only run once after hydration
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -72,18 +70,40 @@ function PureMultimodalInput({
         }
       ]);
       
-      // Add default system response
-      setTimeout(() => {
-        setMessages((currentMessages) => [
-          ...currentMessages,
-          {
-            id: (Date.now() + 1).toString(),
-            role: 'assistant',
-            content: 'Default message',
-            createdAt: new Date()
+      // Send message to the server
+      const askChatbot = async () => {
+        const response = await fetch('../app/api/chatbot/ask', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: input,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Could not fetch the answer.');
+        }
+        
+        console.log('Response:', response);
+        const data = await response.json();
+        const { message } = data;
+
+        setMessages((currentMessages) => {
+          const updatedMessages = [...currentMessages];
+          const lastMessage = updatedMessages.pop();
+
+          if (lastMessage) {
+            updatedMessages.push({
+              ...lastMessage,
+              content: message,
+              createdAt: new Date(),
+            });
           }
-        ]);
-      }, 500);
+          return updatedMessages;
+        });
+      };
     }
     
     setLocalStorageInput('');

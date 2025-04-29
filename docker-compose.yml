@@ -8,7 +8,6 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=${WEB_PORT}
-      - MONGODB_URI=${MONGODB_URI}
       - ML_SERVICE_URL=${ML_SERVICE_URL}
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
     volumes:
@@ -29,5 +28,4 @@ services:
       - PORT=${ML_PORT}
     volumes:
       - ./chatbot-service:/app
-      - ./chatbot-service/models:/app/models
     restart: unless-stopped 
