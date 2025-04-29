@@ -1,0 +1,33 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+    environment:
+      - NODE_ENV=production
+      - PORT=${WEB_PORT}
+      - MONGODB_URI=${MONGODB_URI}
+      - ML_SERVICE_URL=${ML_SERVICE_URL}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+    volumes:
+      - .:/app
+      - /app/.next
+      - /app/node_modules
+    restart: unless-stopped
+
+  chatbot-service:
+    build:
+      context: ./chatbot-service
+      dockerfile: Dockerfile
+    ports:
+      - "${ML_PORT}:${ML_PORT}"
+    environment:
+      - FLASK_ENV=development
+      - MODEL_PATH=/app/models/model.pkl
+      - PORT=${ML_PORT}
+    volumes:
+      - ./chatbot-service:/app
+      - ./chatbot-service/models:/app/models
+    restart: unless-stopped 
