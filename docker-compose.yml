@@ -24,7 +24,6 @@ services:
       - "${ML_PORT}:${ML_PORT}"
     environment:
       - FLASK_ENV=development
-      - MODEL_PATH=/app/models/model.pkl
       - PORT=${ML_PORT}
     volumes:
       - ./chatbot-service:/app

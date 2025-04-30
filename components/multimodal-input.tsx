@@ -57,7 +57,7 @@ function PureMultimodalInput({
     setInput(event.target.value);
   };
 
-  const submitForm = useCallback(() => {
+  const submitForm = useCallback(async () => {
     if (input.trim()) {
       // Add user message
       setMessages((currentMessages) => [
@@ -70,9 +70,9 @@ function PureMultimodalInput({
         }
       ]);
       
-      // Send message to the server
-      const askChatbot = async () => {
-        const response = await fetch('../app/api/chatbot/ask', {
+      try {
+        // Send message to the server
+        const response = await fetch('api/chatbot/ask', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -83,34 +83,43 @@ function PureMultimodalInput({
         });
 
         if (!response.ok) {
-          throw new Error('Could not fetch the answer.');
+          throw new Error('Could not fetch the answer.' + response.status);
         }
         
-        console.log('Response:', response);
         const data = await response.json();
         const { message } = data;
 
-        setMessages((currentMessages) => {
-          const updatedMessages = [...currentMessages];
-          const lastMessage = updatedMessages.pop();
-
-          if (lastMessage) {
-            updatedMessages.push({
-              ...lastMessage,
-              content: message,
-              createdAt: new Date(),
-            });
+        // Update messages with the response
+        setMessages((currentMessages) => [
+          ...currentMessages,
+          {
+            id: Date.now().toString(),
+            role: 'assistant',
+            content: message,
+            createdAt: new Date()
           }
-          return updatedMessages;
-        });
-      };
-    }
-    
-    setLocalStorageInput('');
-    setInput('');
-    
-    if (width && width > 768) {
-      textareaRef.current?.focus();
+        ]);
+      } catch (error) {
+        console.error('Error communicating with chatbot:', error);
+        // Optionally add an error message to the chat
+        setMessages((currentMessages) => [
+          ...currentMessages,
+          {
+            id: Date.now().toString(),
+            role: 'assistant',
+            content: 'Sorry, there was an error processing your request.',
+            createdAt: new Date()
+          }
+        ]);
+      } finally {
+        // Clear input after processing
+        setLocalStorageInput('');
+        setInput('');
+        
+        if (width && width > 768) {
+          textareaRef.current?.focus();
+        }
+      }
     }
   }, [
     input,
