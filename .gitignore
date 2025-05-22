@@ -43,3 +43,5 @@ yarn-error.log*
 /playwright/*
 
 chatbot-service/__pycache__/
+chatbot-service/flows/__pycache__/
+chatbot-service/utils/__pycache__/

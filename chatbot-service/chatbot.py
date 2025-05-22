@@ -2,6 +2,7 @@ import json
 from classes import Intent
 from classes import DialogueManager
 from flows import FLOW_HANDLERS
+from apiStockMarket import get_stock_price
 
 with open("answers.json") as f:
     ANSWERS = json.load(f)
@@ -52,9 +53,14 @@ def generate_response(intent: Intent, dialogue_manager: DialogueManager):
         dialogue_manager.context["current_ticker"] = tickers[0]
         
         # Simulated price - in real app, this would call an API
-        price = 100.0
-        response = ANSWERS["intents"]["get_stock_price"].format(ticker=tickers[0], price=price)
-        return response
+        price = get_stock_price(tickers[0])
+        if "error" in price:
+            return price["error"]
+        else:
+            price = price["close"]
+            
+            response = ANSWERS["intents"]["get_stock_price"].format(ticker=tickers[0], price=price)
+            return response
         
     # For all other intents, return the standard response
     return ANSWERS["intents"].get(intent.name, ANSWERS["intents"]["fallback"])

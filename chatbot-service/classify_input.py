@@ -131,9 +131,7 @@ def detect_intent(text: str):
         
         intent_name, score = best_intent
         
-        # Only return an intent if score meets threshold
-        if score >= 0.2:
-            return Intent(intent_name, score, extract_entities(text))
+        return Intent(intent_name, score, extract_entities(text))
     
     # No good match found
     return Intent("fallback", 0.0, extract_entities(text))
