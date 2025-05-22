@@ -1,27 +1,128 @@
-[
-    {"intent": "get_stock_price",   "pattern": "(price|quote|cotiz|value|worth) .*\\b([A-Z]{2,5})\\b"},
-    {"intent": "greeting",          "pattern": "\\b(hello|hi|hey|greetings|good (morning|afternoon|evening)|how are you)\\b"},
-    {"intent": "goodbye",           "pattern": "\\b(bye|goodbye|see you|farewell|have a (good|nice) (day|evening)|take care)\\b"},
-    {"intent": "ask_budget_advice", "pattern": "(how|what|can|could|would) .*(save|budget|spend|manage) (money|finances|expenses|income)"},
-    {"intent": "balance_inquiry",   "pattern": "\\b(balance|account|money|bank|checking|savings|funds|available)\\b"},
-    {"intent": "investment_advice", "pattern": "\\b(invest|investments|investing|stock|fund|bond|crypto|bitcoin|portfolio|diversify|market|trading|shares|equity|dividend|yield|return)\\b"},
-    {"intent": "card_advice",       "pattern": "\\b(card|credit|debit|visa|mastercard|amex|payment|transaction|purchase|spending limit|credit limit|cashback|rewards)\\b"},
-    {"intent": "savings_advice",    "pattern": "\\b(save|savings|money|economize|emergency fund|nest egg|retirement|future|financial security|wealth|accumulate)\\b"},
-    {"intent": "interest_rates",    "pattern": "\\b(interest|rate|loan|savings account|apr|apy|mortgage|refinance|fixed rate|variable rate|compound)\\b"},
-    {"intent": "budget_help",       "pattern": "\\b(budget|spending|expenses|income|revenue|cost|expenditure|financial plan|track|monitor|control|manage)\\b"},
-    {"intent": "general_help",      "pattern": "\\b(help|support|advice|recommendation|guide|assist|explain|understand|learn|teach|show|tell)\\b"},
-    {"intent": "gambling_warning",  "pattern": "\\b(gambling|betting|casino|gambling|lottery|sports betting|poker|roulette|slots|wager|stake)\\b"},
-    {"intent": "retirement_planning", "pattern": "\\b(retirement|pension|401k|ira|roth|social security|golden years|retire|nest egg|annuity|pension plan)\\b"},
-    {"intent": "tax_advice",        "pattern": "\\b(tax|taxes|taxation|deduction|credit|refund|filing|irs|income tax|property tax|sales tax|withholding)\\b"},
-    {"intent": "insurance_advice",  "pattern": "\\b(insurance|coverage|policy|premium|deductible|claim|life insurance|health insurance|auto insurance|home insurance|protect)\\b"},
-    {"intent": "debt_management",   "pattern": "\\b(debt|loan|mortgage|credit card debt|student loan|personal loan|pay off|repay|consolidate|refinance|interest|payment)\\b"},
-    {"intent": "financial_goals",   "pattern": "\\b(goal|target|objective|plan|achieve|reach|accomplish|dream|aspiration|financial goal|saving goal|investment goal)\\b"},
-    {"intent": "market_analysis",   "pattern": "\\b(market|trend|analysis|forecast|prediction|outlook|performance|index|dow|nasdaq|s&p|bull|bear|volatility)\\b"},
-    {"intent": "financial_education", "pattern": "\\b(learn|education|course|book|resource|material|guide|tutorial|workshop|seminar|financial literacy|knowledge)\\b"},
-    {"intent": "emergency_fund",    "pattern": "\\b(emergency|emergency fund|rainy day|backup|safety net|reserve|cushion|buffer|protection|security)\\b"},
-    {"intent": "financial_health",  "pattern": "\\b(financial health|financial wellness|financial fitness|money management|financial situation|financial status|financial position)\\b"},
-    {"intent": "investment_risk",   "pattern": "\\b(risk|volatility|uncertainty|exposure|tolerance|appetite|management|mitigation|assessment|evaluation|measure)\\b"},
-    {"intent": "financial_planning", "pattern": "\\b(plan|planning|strategy|roadmap|blueprint|approach|method|system|process|procedure|financial plan)\\b"},
-    {"intent": "wealth_building",   "pattern": "\\b(wealth|rich|affluent|prosperous|wealthy|fortune|assets|net worth|financial independence|financial freedom)\\b"},
-    {"intent": "financial_products", "pattern": "\\b(product|service|offering|solution|option|choice|alternative|financial product|banking product|investment product)\\b"}
-]
+{
+    "intents": [
+        {
+            "intent": "get_stock_price",
+            "keywords": ["price", "quote", "value", "worth", "stock", "ticker", "share", "quotation", "market", "trading"]
+        },
+        {
+            "intent": "greeting",
+            "keywords": ["hello", "hi", "hey", "greetings", "morning", "afternoon", "evening", "howdy"]
+        },
+        {
+            "intent": "goodbye",
+            "keywords": ["bye", "goodbye", "farewell", "later", "take care", "see you", "good night"]
+        },
+        {
+            "intent": "ask_budget_advice",
+            "keywords": ["budget", "save", "spend", "manage", "money", "finances", "expenses", "income", "financial planning"]
+        },
+        {
+            "intent": "balance_inquiry",
+            "keywords": ["balance", "account", "money", "bank", "checking", "savings", "funds", "available", "cash"]
+        },
+        {
+            "intent": "investment_advice",
+            "keywords": ["invest", "investment", "stock", "fund", "bond", "crypto", "bitcoin", "portfolio", "diversify", "market", "trading", "shares", "equity", "dividend", "yield", "return"]
+        },
+        {
+            "intent": "card_advice",
+            "keywords": ["card", "credit", "debit", "visa", "mastercard", "amex", "payment", "transaction", "purchase", "spending", "cashback", "rewards"]
+        },
+        {
+            "intent": "savings_advice",
+            "keywords": ["save", "savings", "money", "economize", "emergency fund", "nest egg", "retirement", "future", "financial security", "wealth", "accumulate"]
+        },
+        {
+            "intent": "interest_rates",
+            "keywords": ["interest", "rate", "loan", "savings account", "apr", "apy", "mortgage", "refinance", "fixed rate", "variable rate", "compound"]
+        },
+        {
+            "intent": "budget_help",
+            "keywords": ["budget", "spending", "expenses", "income", "revenue", "cost", "expenditure", "financial plan", "track", "monitor", "control", "manage"]
+        },
+        {
+            "intent": "general_help",
+            "keywords": ["help", "support", "advice", "recommendation", "guide", "assist", "explain", "understand", "learn", "teach"]
+        },
+        {
+            "intent": "gambling_warning",
+            "keywords": ["gambling", "betting", "casino", "lottery", "sports betting", "poker", "roulette", "slots", "wager", "stake"]
+        },
+        {
+            "intent": "retirement_planning",
+            "keywords": ["retirement", "pension", "401k", "ira", "roth", "social security", "golden years", "retire", "nest egg", "annuity", "pension plan"]
+        },
+        {
+            "intent": "tax_advice",
+            "keywords": ["tax", "taxes", "taxation", "deduction", "credit", "refund", "filing", "irs", "income tax", "property tax", "sales tax", "withholding"]
+        },
+        {
+            "intent": "insurance_advice",
+            "keywords": ["insurance", "coverage", "policy", "premium", "deductible", "claim", "life insurance", "health insurance", "auto insurance", "home insurance", "protect"]
+        },
+        {
+            "intent": "debt_management",
+            "keywords": ["debt", "loan", "mortgage", "credit card debt", "student loan", "personal loan", "pay off", "repay", "consolidate", "refinance", "interest", "payment"]
+        },
+        {
+            "intent": "financial_goals",
+            "keywords": ["goal", "target", "objective", "plan", "achieve", "reach", "accomplish", "dream", "aspiration", "financial goal", "saving goal", "investment goal"]
+        },
+        {
+            "intent": "market_analysis",
+            "keywords": ["market", "trend", "analysis", "forecast", "prediction", "outlook", "performance", "index", "dow", "nasdaq", "s&p", "bull", "bear", "volatility"]
+        },
+        {
+            "intent": "financial_education",
+            "keywords": ["learn", "education", "course", "book", "resource", "material", "guide", "tutorial", "workshop", "seminar", "financial literacy", "knowledge"]
+        },
+        {
+            "intent": "emergency_fund",
+            "keywords": ["emergency", "emergency fund", "rainy day", "backup", "safety net", "reserve", "cushion", "buffer", "protection", "security"]
+        },
+        {
+            "intent": "financial_health",
+            "keywords": ["financial health", "financial wellness", "financial fitness", "money management", "financial situation", "financial status", "financial position"]
+        },
+        {
+            "intent": "investment_risk",
+            "keywords": ["risk", "volatility", "uncertainty", "exposure", "tolerance", "appetite", "management", "mitigation", "assessment", "evaluation", "measure"]
+        },
+        {
+            "intent": "financial_planning",
+            "keywords": ["plan", "planning", "strategy", "roadmap", "blueprint", "approach", "method", "system", "process", "procedure", "financial plan"]
+        },
+        {
+            "intent": "wealth_building",
+            "keywords": ["wealth", "rich", "affluent", "prosperous", "wealthy", "fortune", "assets", "net worth", "financial independence", "financial freedom"]
+        },
+        {
+            "intent": "financial_products",
+            "keywords": ["product", "service", "offering", "solution", "option", "choice", "alternative", "financial product", "banking product", "investment product"]
+        }
+    ],
+    "common_words": [
+        "a", "an", "the", "of", "in", "on", "at", "by", "to", "for", "with", 
+        "and", "or", "is", "are", "was", "were", "be", "been", "being", 
+        "have", "has", "had", "do", "does", "did", "but", "if", "then", 
+        "else", "when", "where", "why", "how", "all", "any", "both", "each", 
+        "few", "more", "most", "other", "some", "such", "no", "nor", "not", 
+        "only", "own", "same", "so", "than", "too", "very", "can", "will", 
+        "just", "should", "now"
+    ],
+    "yes_responses": [
+        "yes", "yeah", "sure", "ok", "okay", "yep", "correct", "true", "si", 
+        "indeed", "absolutely", "definitely", "certainly", "right"
+    ],
+    "yes_phrases": [
+        "like to know more", "i would", "tell me more", "sounds good", 
+        "that works", "go ahead", "please do"
+    ],
+    "no_responses": [
+        "no", "nope", "not", "false", "incorrect", "nah", "never"
+    ],
+    "no_phrases": [
+        "not interested", "don't want", "do not want", "no thanks", 
+        "i'm good", "pass", "let's move on"
+    ]
+}

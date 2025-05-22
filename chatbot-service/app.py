@@ -9,32 +9,14 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Create a global dialogue manager instance
 dialogue_manager = DialogueManager()
 
-# Health check endpoint
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    """Simple health check endpoint"""
-    try:
-        return jsonify({
-            'status': 'healthy',
-        })
-    except Exception as e:
-        return jsonify({
-            'status': 'unhealthy',
-        }), 500
-
-# Endpoint to receive messages from the web service
 @app.route('/chat/ask', methods=['POST'])
-def get_question():
-    """ 
-    Receive data from the web service and process it to generate a response. 
-    """   
+def get_question(): 
     data = request.json
     message = data.get('message')
 
-    # Process message using the new intent-based system
+    # Process message and return response to web service
     intent = detect_intent(message)
     dialogue_manager.update(intent)
     response_message = generate_response(intent, dialogue_manager)

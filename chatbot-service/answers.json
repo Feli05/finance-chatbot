@@ -1,4 +1,5 @@
 {
+    "intents": {
     "get_stock_price": "The current price of {ticker} is {price} USD. Would you like to know more about this stock's performance or market trends?",
     "greeting": "Hello! I'm your financial assistant. I can help you with various financial topics including investments, budgeting, savings, and more. What would you like to discuss today?",
     "goodbye": "Thank you for chatting! Remember, I'm here whenever you need financial advice or information. Have a great day!",
@@ -25,5 +26,165 @@
     "financial_planning": "Financial planning helps you achieve your goals. It involves: budgeting, saving, investing, and protecting your assets. Would you like to create a comprehensive financial plan?",
     "wealth_building": "Building wealth requires a long-term strategy including: saving, investing, and managing debt. Would you like to discuss specific strategies for building wealth?",
     "financial_products": "There are many financial products available. Understanding your needs and goals is key to choosing the right ones. Would you like to learn about specific financial products that might benefit you?"
+    },
+    "fallback": {
+        "error_message": "I apologize for the confusion. Is there something else I can help you with?",
+        "step_out_of_range": "I apologize, but I've lost track of our conversation. Is there something else I can help you with?",
+        "json_load_error": "I'm not sure I understand. Could you rephrase your question?"
+    },
+    "flows": {
+        "savings_flow": {
+            "description": "Flow for handling savings advice conversations",
+            "steps": [
+                {
+                    "description": "Initial response to savings advice request",
+                    "yes_response": "Perfect! Let's discuss your savings goals. Are you saving for short-term goals like an emergency fund, or longer-term goals like retirement?",
+                    "no_response": "No problem. Is there something else I can help you with regarding your finances?",
+                    "emergency_response": "Emergency funds are critical! Financial experts recommend saving 3-6 months of expenses. Would you like tips on building your emergency fund faster?",
+                    "retirement_response": "Planning for retirement is smart! The earlier you start, the more your money can grow. Are you currently contributing to any retirement accounts?",
+                    "default_response": "I see. For effective savings, I need to understand your goals. Are you saving for something in the near future, or a long-term goal like retirement?"
+                },
+                {
+                    "description": "Response based on savings goal",
+                    "emergency": {
+                        "yes_response": "Great! To build your emergency fund faster: 1) Set up automatic transfers to savings, 2) Save your tax refunds and bonuses, 3) Cut unnecessary expenses and redirect that money to savings. Would you like a recommended budget breakdown?",
+                        "no_response": "I understand. Let me know if you need any other financial advice in the future.",
+                        "default_response": "Great! To build your emergency fund faster: Set up automatic transfers, save windfalls, and cut unnecessary expenses."
+                    },
+                    "retirement": {
+                        "yes_response": "Excellent! Make sure you're maximizing any employer match, diversifying your investments, and increasing contributions whenever possible. Would you like to know about different retirement account options?",
+                        "no_response": "Starting a retirement account is a great first step. Look into employer-sponsored plans like 401(k)s or individual options like IRAs. Would you like more specific advice?",
+                        "default_response": "Excellent! Maximize employer matches, diversify investments, and increase contributions when possible."
+                    },
+                    "default_response": "For effective saving, I recommend the 50/30/20 rule: 50% of income for needs, 30% for wants, and 20% for savings and debt repayment. Would you like more specific advice for your situation?"
+                },
+                {
+                    "description": "Final advice for savings conversation",
+                    "final_response": "I hope this advice helps with your savings goals! Remember, consistency is key. Is there anything else I can help with regarding your finances?"
+                }
+            ]
+        },
+        "investment_flow": {
+            "description": "Flow for handling investment advice conversations",
+            "steps": [
+                {
+                    "description": "Initial response to investment advice request",
+                    "yes_response": "Excellent! For beginners, I recommend starting with index funds which offer broad market exposure with lower fees. Are you interested in stocks, bonds, or a mix of both?",
+                    "no_response": "No problem. Let me know if you have other financial questions in the future.",
+                    "stocks_response": "Stocks offer higher growth potential but with more volatility. For beginners, ETFs that track major indices like the S&P 500 are a good starting point. Would you like to know more about specific stock ETFs?",
+                    "stocks_percentage_response": "Allocating {percentage} to stocks can provide good growth potential but with increased volatility. For beginners, ETFs that track major indices like the S&P 500 are a good starting point. Would you like to know more about specific stock ETFs?",
+                    "bonds_response": "Bonds typically offer more stability and income than stocks, but with lower growth potential. They're good for preserving capital and generating income. Would you like to know more about bond investments?",
+                    "bonds_percentage_response": "Allocating {percentage} to bonds can provide stability and income in your portfolio. Bonds typically offer more stability than stocks, but with lower growth potential. Would you like to know more about bond investments?",
+                    "default_response": "I recommend a diversified portfolio with both stocks and bonds, with the ratio depending on your risk tolerance and time horizon. Would you like to know more about building a balanced portfolio?",
+                    "default_percentage_response": "A portfolio with {percentage} in stocks and {bond_percentage}% in bonds could be a reasonable mix, depending on your risk tolerance and time horizon. Would you like to know more about building a balanced portfolio?"
+                },
+                {
+                    "description": "Response based on investment interest",
+                    "stocks": {
+                        "yes_response": "Popular stock ETFs include SPY (tracks S&P 500), QQQ (tracks Nasdaq-100), and VTI (total US stock market). These give you broad exposure with a single purchase. Would you like information on how to start investing in these?",
+                        "no_response": "No problem. Remember that diversification is key to managing risk. Let me know if you'd like information about other investment types in the future.",
+                        "default_response": "Popular stock ETFs include SPY, QQQ, and VTI for broad market exposure."
+                    },
+                    "bonds": {
+                        "yes_response": "Bond ETFs like AGG (total US bond market), BND (Vanguard total bond), or SCHZ (Schwab aggregate bond) are good starting points. They provide exposure to a variety of bonds in one investment. Would you like to know about different types of bonds?",
+                        "no_response": "No problem. Bonds can be a valuable part of a diversified portfolio. Feel free to ask if you have questions about bonds or other investments in the future.",
+                        "default_response": "Bond ETFs like AGG, BND, or SCHZ are good starting points."
+                    },
+                    "default": {
+                        "yes_response": "For a balanced portfolio, consider target-date funds which automatically adjust your stock/bond mix over time, or balanced ETFs. These provide diversification in a single investment. Would you like specific fund recommendations?",
+                        "no_response": "No problem. Remember that proper asset allocation based on your risk tolerance and time horizon is key to investment success. Let me know if you have other investment questions.",
+                        "default_response": "For a balanced portfolio, consider target-date funds or balanced ETFs."
+                    }
+                },
+                {
+                    "description": "Final advice for investment conversation",
+                    "final_response": "I hope this helps with your investment decisions! Remember that investing is for the long term, and consistency often matters more than timing. Is there anything else I can help with?"
+                }
+            ]
+        },
+        "balance_flow": {
+            "description": "Flow for handling balance inquiry conversations",
+            "steps": [
+                {
+                    "description": "Initial response to balance inquiry",
+                    "yes_response": "Great! To manage your accounts effectively, I recommend: 1) Setting up automatic alerts for low balances, 2) Reviewing your accounts weekly, 3) Using tools that categorize your spending. Would you like more specific advice on any of these areas?",
+                    "no_response": "No problem. Let me know if you have other financial questions.",
+                    "default_response": "I understand. Managing your accounts is important for financial health. Feel free to ask specific questions about budgeting or account management anytime."
+                },
+                {
+                    "description": "Response based on account management interest",
+                    "alerts_response": "Setting up balance alerts is easy! Most banking apps let you set thresholds like 'notify me when balance drops below $500.' This helps avoid overdrafts and keeps you aware of your finances. Is there a specific bank you use?",
+                    "review_response": "Weekly account reviews are crucial. Set aside 15 minutes each week to check transactions, look for errors, and ensure your spending aligns with your budget. Many banks offer spending summaries to make this easier. Do you currently review your accounts regularly?",
+                    "categorize_response": "Tools like Mint, YNAB, or even your bank's mobile app can automatically categorize spending to show where your money goes. This helps identify areas to cut back. Have you tried any budgeting apps before?",
+                    "default_response": "For effective account management, consistent monitoring and planning are key. Start with weekly reviews and automated alerts, then consider using budgeting tools for deeper insights. Let me know if you have more specific questions!"
+                },
+                {
+                    "description": "Final advice for balance conversation",
+                    "final_response": "I hope this information helps you manage your accounts more effectively! Maintaining awareness of your finances is the first step toward financial freedom. Is there anything else I can help with?"
+                }
+            ]
+        },
+        "stock_flow": {
+            "description": "Flow for handling stock price conversations",
+            "steps": [
+                {
+                    "description": "Initial response after providing stock price",
+                    "yes_response": "{ticker} has shown strong performance recently with a positive trend in the last quarter. The company reported earnings above expectations. Would you like to know about analyst recommendations for {ticker}?",
+                    "no_response": "No problem. Let me know if you want to check any other stock prices or have other financial questions.",
+                    "default_response": "I've provided the current price for {ticker}. If you'd like more detailed analysis or information about other stocks, just let me know."
+                },
+                {
+                    "description": "Response about analyst recommendations",
+                    "yes_response": "Analysts currently have mixed opinions on {ticker}. Some see growth potential based on upcoming product launches, while others are concerned about market competition. The average price target is about 15% above the current price. Would you like to know about the risks associated with this stock?",
+                    "default_response": "I understand. Remember that stock prices fluctuate and past performance doesn't guarantee future results. Let me know if you have other questions about {ticker} or other stocks."
+                },
+                {
+                    "description": "Final advice about stock risks",
+                    "final_response": "The main risks for {ticker} include market competition, regulatory challenges, and general market volatility. Always consider your investment timeframe and risk tolerance before investing. Is there anything else you'd like to know about investing?"
+                }
+            ]
+        },
+        "budget_flow": {
+            "description": "Flow for handling budget advice conversations",
+            "steps": [
+                {
+                    "description": "Initial response to budget advice request",
+                    "saving_response": "Saving is an excellent goal! The 50/30/20 rule is a good starting point: 50% for necessities, 30% for wants, and 20% for savings. Would you like to know more about this approach?",
+                    "saving_amount_response": "Great! If you want to save {budget_amount}, let's create a plan. The 50/30/20 rule is a good starting point: 50% for necessities, 30% for wants, and 20% for savings. Would you like a more detailed breakdown?",
+                    "debt_response": "Paying off debt is a smart financial decision. I recommend using either the avalanche method (paying off highest interest first) or the snowball method (paying off smallest debts first). Which approach sounds more appealing to you?",
+                    "emergency_response": "Building an emergency fund is crucial! Aim for 3-6 months of expenses. Would you like some tips to build this fund more quickly?",
+                    "yes_response": "Great! Let's talk about your budget. First, what's your primary financial goal right now? Are you trying to save money, pay off debt, or create an emergency fund?",
+                    "no_response": "No problem. If you need budgeting advice in the future, just let me know.",
+                    "default_response": "To create an effective budget, let's start with your financial goals. Are you trying to save for something specific, pay off debt, or build an emergency fund?"
+                },
+                {
+                    "description": "Response based on budget goal",
+                    "saving": {
+                        "yes_response": "Here's a more detailed breakdown: From your income, allocate 50% to needs (rent, utilities, groceries), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment. Track all expenses for a month to see where your money goes. Would you like specific expense-tracking tools recommendations?",
+                        "no_response": "The 50/30/20 rule provides a simple framework to manage your finances. Adjust percentages based on your specific situation and goals. Is there anything else I can help with?",
+                        "default_response": "Allocate 50% to needs, 30% to wants, and 20% to savings and debt repayment."
+                    },
+                    "debt": {
+                        "avalanche_response": "The avalanche method is mathematically optimal. List all debts by interest rate, make minimum payments on all, and put extra money toward the highest-interest debt. Would you like a tool recommendation to help manage this approach?",
+                        "snowball_response": "The snowball method is great for motivation. List debts from smallest to largest balance, make minimum payments on all, and put extra money toward the smallest debt. Would you like a tool recommendation to help manage this approach?",
+                        "default_response": "Both avalanche and snowball methods work well. Avalanche saves more money long-term by targeting high-interest debt first. Snowball provides quick wins by eliminating small debts first, which can be motivating. Which method interests you more?"
+                    },
+                    "emergency": {
+                        "yes_response": "To build an emergency fund faster: 1) Set up automatic transfers to savings on payday, 2) Save all unexpected income (tax refunds, bonuses), 3) Cut unnecessary expenses temporarily and redirect that money to savings. Would you like to know about high-yield savings accounts for your emergency fund?",
+                        "no_response": "Having an emergency fund is essential for financial security. Aim to save a small amount consistently until you reach your goal. Is there anything else I can help with?",
+                        "default_response": "To build an emergency fund faster, set up automatic transfers."
+                    },
+                    "default_response": "Creating a budget starts with tracking all income and expenses for a month. Once you know where your money is going, you can make informed decisions about where to cut back. Would you like some recommendations for budgeting tools to help with this?"
+                },
+                {
+                    "description": "Final advice based on budget goal",
+                    "saving_final": "Great tools for expense tracking include Mint, YNAB (You Need A Budget), or even a simple spreadsheet. The key is consistency in tracking and reviewing your spending regularly. Is there anything else I can help with?",
+                    "debt_final": "Apps like Debt Payoff Planner or Undebt.it can help you implement either the avalanche or snowball method. They provide visual progress tracking which can be motivating. Remember, consistency is key to becoming debt-free. Is there anything else I can help with?",
+                    "emergency_final": "High-yield savings accounts at online banks typically offer better interest rates than traditional banks, helping your emergency fund grow faster. Look for accounts with no monthly fees and easy access in emergencies. Is there anything else I can help with?",
+                    "default_final": "Remember that a budget is a living document that should be adjusted as your income and expenses change. Review it regularly and make adjustments as needed. Is there anything else I can help with regarding your finances?"
+                }
+            ]
+        }
+    }
 }
   

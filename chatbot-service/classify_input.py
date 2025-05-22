@@ -2,6 +2,8 @@ import re
 import json
 from classes import Intent, Entity
 
+with open("patterns.json") as f:
+    CONFIG = json.load(f)
 
 def tokenize(text: str):
     text = text.lower()
@@ -31,24 +33,30 @@ def extract_percentages(text: str):
 def extract_simple_response(text: str):
     text = text.lower().strip()
     
-    # More flexible detection for affirmative responses
-    if (text.startswith("yes") or 
-        text.startswith("yeah") or 
-        text.startswith("sure") or 
-        text.startswith("i would") or
-        "like to know more" in text or
-        text == "ok" or 
-        text == "okay" or
-        text in ["yep", "si", "true", "correct"]):
-        return [Entity("simple_response", "yes", 1.0)]
-    # More flexible detection for negative responses
-    elif (text.startswith("no") or 
-          text.startswith("nope") or 
-          text == "not" or
-          "not interested" in text or
-          "don't want" in text or
-          text in ["false", "incorrect"]):
-        return [Entity("simple_response", "no", 1.0)]
+    # Get yes/no responses from config
+    yes_words = CONFIG["yes_responses"]
+    no_words = CONFIG["no_responses"]
+    yes_phrases = CONFIG["yes_phrases"]
+    no_phrases = CONFIG["no_phrases"]
+    
+    # Check for exact matches first
+    for word in yes_words:
+        if text == word or text.startswith(word + " "):
+            return [Entity("simple_response", "yes", 1.0)]
+            
+    for word in no_words:
+        if text == word or text.startswith(word + " "):
+            return [Entity("simple_response", "no", 1.0)]
+    
+    # Check for phrases
+    for phrase in yes_phrases:
+        if phrase in text:
+            return [Entity("simple_response", "yes", 1.0)]
+    
+    for phrase in no_phrases:
+        if phrase in text:
+            return [Entity("simple_response", "no", 1.0)]
+        
     return []
 
 def extract_entities(text: str):
@@ -64,34 +72,70 @@ def extract_entities(text: str):
     
     return entities
 
+def simple_stem(word):
+    if len(word) <= 3:
+        return word
+        
+    if word.endswith('s'):
+        return word[:-1]
+    if word.endswith('es'):
+        return word[:-2]
+    if word.endswith('ing'):
+        return word[:-3]
+    if word.endswith('ed'):
+        return word[:-2]
+    
+    return word
+
 def detect_intent(text: str):
-    # First check for responses that might be follow-ups to previous questions
-    text_lower = text.lower().strip()
-    
-    # Check for simple responses (yes/no) regardless of sentence complexity
-    simple_responses = extract_simple_response(text_lower)
-    
+    simple_responses = extract_simple_response(text.lower().strip())
     if simple_responses:
-        # Simple responses will be handled in generate_response by checking the dialogue context
         return Intent("fallback", 0.0, simple_responses)
     
-    best_intent = None
-    best_confidence = 0.0
+    tokens = tokenize(text)
+    stemmed_tokens = [simple_stem(token) for token in tokens]
+    
+    intent_scores = {}
+    
+    for intent_obj in CONFIG["intents"]:
+        intent = intent_obj["intent"]
+        keywords = intent_obj["keywords"]
+        
+        matches = 0
+        
+        # Check for phrases
+        for keyword in keywords:
+            if ' ' in keyword and keyword.lower() in text.lower():
+                matches += 1.5 
+                continue
+                
+        # Check for individual words
+        for keyword in keywords:
+            if ' ' not in keyword:  
+                if keyword in tokens:
+                    matches += 1
+                    continue
+                    
+                stemmed_keyword = simple_stem(keyword)
+                if stemmed_keyword in stemmed_tokens:
+                    matches += 0.8 
+        
+        if matches > 0:
+            # Normalize by keyword count and add bonus for multiple matches
+            score = (matches / len(keywords)) * (1 + 0.1 * matches)
+            intent_scores[intent] = score
+    
+    # Find best matching intent
+    if intent_scores:
+        best_intent = max(intent_scores.items(), key=lambda score: score[1])
+        
+        intent_name, score = best_intent
+        
+        # Only return an intent if score meets threshold
+        if score >= 0.2:
+            return Intent(intent_name, score, extract_entities(text))
+    
+    # No good match found
+    return Intent("fallback", 0.0, extract_entities(text))
 
-    for pattern in PATTERNS:
-        match = pattern["regex"].search(text)
-        if match:
-            # Calculate confidence based on match length and position
-            confidence = len(match.group()) / len(text)
-            if confidence > best_confidence:
-                best_confidence = confidence
-                best_intent = pattern["intent"]
 
-    if not best_intent:
-        return Intent("fallback", 0.0, extract_entities(text))
-
-    entities = extract_entities(text)
-    return Intent(best_intent, best_confidence, entities)
-
-with open("patterns.json") as f:
-    PATTERNS = [{"intent": p["intent"], "regex": re.compile(p["pattern"], re.IGNORECASE)} for p in json.load(f)]
