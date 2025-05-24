@@ -6,15 +6,15 @@
         },
         {
             "intent": "greeting",
-            "keywords": ["hello", "hi", "hey", "greetings", "morning", "afternoon", "evening", "howdy"]
+            "keywords": ["hello", "hi", "hey", "greetings", "morning", "afternoon", "evening", "howdy", "hola", "sup", "yo", "hiya", "good day", "whats up", "what's up", "wassup", "how are you", "how's it going"]
         },
         {
-            "intent": "goodbye",
-            "keywords": ["bye", "goodbye", "farewell", "later", "take care", "see you", "good night"]
+            "intent": "capabilities",
+            "keywords": ["capabilities", "functionalities", "what can you do", "what do you do", "tell me what you can do", "tell me what you do", "tell me your capabilities", "tell me your functions", "tell me about yourself", "what are you capable of", "what are your capabilities", "what services do you offer", "show me what you can do", "tell me about your services", "explain what you can do", "list your capabilities", "list your features", "what topics do you cover", "what can I ask you", "what can you help with", "how can you help me", "what questions can I ask", "what do you know about", "what are your functions"]
         },
         {
             "intent": "ask_budget_advice",
-            "keywords": ["budget", "save", "spend", "manage", "money", "finances", "expenses", "income", "financial planning"]
+            "keywords": ["budget", "save", "spend", "manage", "money", "finances", "expenses", "income", "financial planning", "spending", "revenue", "cost", "expenditure", "track", "monitor", "control"]
         },
         {
             "intent": "balance_inquiry",
@@ -22,7 +22,7 @@
         },
         {
             "intent": "investment_advice",
-            "keywords": ["invest", "investment", "stock", "fund", "bond", "crypto", "bitcoin", "portfolio", "diversify", "market", "trading", "shares", "equity", "dividend", "yield", "return"]
+            "keywords": ["invest", "investing", "investments", "investment", "stock", "fund", "bond", "crypto", "bitcoin", "portfolio", "diversify", "market", "trading", "shares", "equity", "dividend", "yield", "return", "learn to invest", "about investments", "stock market", "etf", "mutual fund"]
         },
         {
             "intent": "card_advice",
@@ -37,28 +37,8 @@
             "keywords": ["interest", "rate", "loan", "savings account", "apr", "apy", "mortgage", "refinance", "fixed rate", "variable rate", "compound"]
         },
         {
-            "intent": "budget_help",
-            "keywords": ["budget", "spending", "expenses", "income", "revenue", "cost", "expenditure", "financial plan", "track", "monitor", "control", "manage"]
-        },
-        {
-            "intent": "general_help",
-            "keywords": ["help", "support", "advice", "recommendation", "guide", "assist", "explain", "understand", "learn", "teach"]
-        },
-        {
-            "intent": "gambling_warning",
-            "keywords": ["gambling", "betting", "casino", "lottery", "sports betting", "poker", "roulette", "slots", "wager", "stake"]
-        },
-        {
             "intent": "retirement_planning",
             "keywords": ["retirement", "pension", "401k", "ira", "roth", "social security", "golden years", "retire", "nest egg", "annuity", "pension plan"]
-        },
-        {
-            "intent": "tax_advice",
-            "keywords": ["tax", "taxes", "taxation", "deduction", "credit", "refund", "filing", "irs", "income tax", "property tax", "sales tax", "withholding"]
-        },
-        {
-            "intent": "insurance_advice",
-            "keywords": ["insurance", "coverage", "policy", "premium", "deductible", "claim", "life insurance", "health insurance", "auto insurance", "home insurance", "protect"]
         },
         {
             "intent": "debt_management",
@@ -69,36 +49,20 @@
             "keywords": ["goal", "target", "objective", "plan", "achieve", "reach", "accomplish", "dream", "aspiration", "financial goal", "saving goal", "investment goal"]
         },
         {
-            "intent": "market_analysis",
-            "keywords": ["market", "trend", "analysis", "forecast", "prediction", "outlook", "performance", "index", "dow", "nasdaq", "s&p", "bull", "bear", "volatility"]
-        },
-        {
-            "intent": "financial_education",
-            "keywords": ["learn", "education", "course", "book", "resource", "material", "guide", "tutorial", "workshop", "seminar", "financial literacy", "knowledge"]
-        },
-        {
             "intent": "emergency_fund",
             "keywords": ["emergency", "emergency fund", "rainy day", "backup", "safety net", "reserve", "cushion", "buffer", "protection", "security"]
-        },
-        {
-            "intent": "financial_health",
-            "keywords": ["financial health", "financial wellness", "financial fitness", "money management", "financial situation", "financial status", "financial position"]
         },
         {
             "intent": "investment_risk",
             "keywords": ["risk", "volatility", "uncertainty", "exposure", "tolerance", "appetite", "management", "mitigation", "assessment", "evaluation", "measure"]
         },
         {
-            "intent": "financial_planning",
-            "keywords": ["plan", "planning", "strategy", "roadmap", "blueprint", "approach", "method", "system", "process", "procedure", "financial plan"]
+            "intent": "thanks",
+            "keywords": ["thanks", "thank you", "appreciate", "grateful", "thank", "thx", "thankyou", "ty"]
         },
         {
-            "intent": "wealth_building",
-            "keywords": ["wealth", "rich", "affluent", "prosperous", "wealthy", "fortune", "assets", "net worth", "financial independence", "financial freedom"]
-        },
-        {
-            "intent": "financial_products",
-            "keywords": ["product", "service", "offering", "solution", "option", "choice", "alternative", "financial product", "banking product", "investment product"]
+            "intent": "exit",
+            "keywords": ["exit"]
         }
     ],
     "common_words": [

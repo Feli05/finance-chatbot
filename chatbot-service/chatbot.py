@@ -2,13 +2,15 @@ import json
 from classes import Intent
 from classes import DialogueManager
 from flows import FLOW_HANDLERS
-from apiStockMarket import get_stock_price
 
 with open("answers.json") as f:
     ANSWERS = json.load(f)
 
 def generate_response(intent: Intent, dialogue_manager: DialogueManager):
-    # Get current flow state
+    if intent.name == "exit" or intent.name == "thanks":
+        dialogue_manager.end_flow()
+        return ANSWERS["intents"][intent.name]
+    
     flow_state = dialogue_manager.get_flow_state()
     current_flow = flow_state['flow']
     current_step = flow_state['step']
@@ -20,47 +22,22 @@ def generate_response(intent: Intent, dialogue_manager: DialogueManager):
     # If not in a flow, check for new intents to start flows
     if intent.name == "savings_advice":
         dialogue_manager.start_flow("savings_flow")
-        response = ANSWERS["intents"]["savings_advice"]
-        return response
+        return FLOW_HANDLERS["savings_flow"](intent, dialogue_manager, 0, ANSWERS)
         
     elif intent.name == "investment_advice":
         dialogue_manager.start_flow("investment_flow")
-        response = ANSWERS["intents"]["investment_advice"]
-        return response
+        return FLOW_HANDLERS["investment_flow"](intent, dialogue_manager, 0, ANSWERS)
         
     elif intent.name == "balance_inquiry":
         dialogue_manager.start_flow("balance_flow")
-        response = ANSWERS["intents"]["balance_inquiry"]
-        return response
+        return FLOW_HANDLERS["balance_flow"](intent, dialogue_manager, 0, ANSWERS)
     
     elif intent.name == "ask_budget_advice":
         dialogue_manager.start_flow("budget_flow")
-        # Check for amounts mentioned
-        amounts = [entity.value for entity in intent.entities if entity.type == "amount"]
-        if amounts:
-            dialogue_manager.context["budget_amount"] = amounts[0]
-            response = f"I see you're looking to budget {amounts[0]}. {ANSWERS['intents']['ask_budget_advice']}"
-        else:
-            response = ANSWERS["intents"]["ask_budget_advice"]
-        return response
+        return FLOW_HANDLERS["budget_flow"](intent, dialogue_manager, 0, ANSWERS)
         
     elif intent.name == "get_stock_price":
-        tickers = [entity.value for entity in intent.entities if entity.type == "ticker"]
-        if not tickers:
-            return "Please specify a stock ticker symbol (e.g., AAPL for Apple)"
-            
         dialogue_manager.start_flow("stock_flow")
-        dialogue_manager.context["current_ticker"] = tickers[0]
+        return FLOW_HANDLERS["stock_flow"](intent, dialogue_manager, 0, ANSWERS)
         
-        # Simulated price - in real app, this would call an API
-        price = get_stock_price(tickers[0])
-        if "error" in price:
-            return price["error"]
-        else:
-            price = price["close"]
-            
-            response = ANSWERS["intents"]["get_stock_price"].format(ticker=tickers[0], price=price)
-            return response
-        
-    # For all other intents, return the standard response
     return ANSWERS["intents"].get(intent.name, ANSWERS["intents"]["fallback"])

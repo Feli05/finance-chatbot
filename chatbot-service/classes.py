@@ -18,7 +18,6 @@ class DialogueManager:
         self.history = []  
         self.context = {}  
         self.max_history = 10
-        self.last_question = None  
         self.current_flow = None   
         self.flow_step = 0         
 
@@ -50,15 +49,6 @@ class DialogueManager:
 
     def last_intent(self):
         return self.history[-1][0] if self.history else None
-    
-    def set_last_question(self, question_type, options=None):
-        self.last_question = {
-            'type': question_type,
-            'options': options
-        }
-        
-    def get_last_question(self):
-        return self.last_question
         
     def start_flow(self, flow_name):
         self.current_flow = flow_name

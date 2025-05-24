@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { useLocalStorage, useWindowSize } from 'usehooks-ts';
 
-import { ArrowUpIcon, StopIcon } from './icons';
+import { ArrowUpIcon } from './icons';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import type { UseChatHelpers } from '@ai-sdk/react';
@@ -18,18 +18,12 @@ import type { UseChatHelpers } from '@ai-sdk/react';
 function PureMultimodalInput({
   input,
   setInput,
-  status,
-  stop,
   setMessages,
   className,
 }: {
-  input: UseChatHelpers['input'];
-  setInput: UseChatHelpers['setInput'];
-  status: UseChatHelpers['status'];
-  stop: () => void;
-  setMessages: UseChatHelpers['setMessages'];
-  append: UseChatHelpers['append'];
-  handleSubmit: UseChatHelpers['handleSubmit'];
+  input: string;
+  setInput: (input: string) => void;
+  setMessages: UseChatHelpers['setMessages']; 
   className?: string;
 }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -43,7 +37,6 @@ function PureMultimodalInput({
   useEffect(() => {
     if (textareaRef.current) {
       const domValue = textareaRef.current.value;
-      // Prefer DOM value over localStorage to handle hydration
       const finalValue = domValue || localStorageInput || '';
       setInput(finalValue);
     }
@@ -88,7 +81,7 @@ function PureMultimodalInput({
         
         const data = await response.json();
         const { message } = data;
-
+        
         // Update messages with the response
         setMessages((currentMessages) => [
           ...currentMessages,
@@ -101,7 +94,6 @@ function PureMultimodalInput({
         ]);
       } catch (error) {
         console.error('Error communicating with chatbot:', error);
-        // Optionally add an error message to the chat
         setMessages((currentMessages) => [
           ...currentMessages,
           {
@@ -112,7 +104,6 @@ function PureMultimodalInput({
           }
         ]);
       } finally {
-        // Clear input after processing
         setLocalStorageInput('');
         setInput('');
         
@@ -126,7 +117,7 @@ function PureMultimodalInput({
     setInput,
     setMessages,
     setLocalStorageInput,
-    width,
+    width
   ]);
 
   return (
@@ -157,14 +148,10 @@ function PureMultimodalInput({
       />
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
-        {status === 'submitted' ? (
-          <StopButton stop={stop} setMessages={setMessages} />
-        ) : (
-          <SendButton
-            input={input}
-            submitForm={submitForm}
-          />
-        )}
+        <SendButton
+          input={input}
+          submitForm={submitForm}
+        />
       </div>
     </div>
   );
@@ -173,35 +160,9 @@ function PureMultimodalInput({
 export const MultimodalInput = memo(
   PureMultimodalInput,
   (prevProps, nextProps) => {
-    if (prevProps.input !== nextProps.input) return false;
-    if (prevProps.status !== nextProps.status) return false;
-    return true;
+    return prevProps.input === nextProps.input;
   },
 );
-
-function PureStopButton({
-  stop,
-  setMessages,
-}: {
-  stop: () => void;
-  setMessages: UseChatHelpers['setMessages'];
-}) {
-  return (
-    <Button
-      data-testid="stop-button"
-      className="rounded-full p-1.5 h-fit border dark:border-zinc-600"
-      onClick={(event) => {
-        event.preventDefault();
-        stop();
-        setMessages((messages) => messages);
-      }}
-    >
-      <StopIcon size={14} />
-    </Button>
-  );
-}
-
-const StopButton = memo(PureStopButton);
 
 function PureSendButton({
   submitForm,
@@ -226,6 +187,5 @@ function PureSendButton({
 }
 
 const SendButton = memo(PureSendButton, (prevProps, nextProps) => {
-  if (prevProps.input !== nextProps.input) return false;
-  return true;
+  return prevProps.input === nextProps.input;
 });

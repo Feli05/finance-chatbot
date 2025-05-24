@@ -1,1 +1,19 @@
- __pycache__/
+__pycache__/
+
+flows/__pycache__/
+
+utils/__pycache__/
+
+flows/*.pyc
+
+utils/*.pyc
+
+*.pyc
+
+*.pyo
+
+*.pyd
+
+*.pyw
+
+*.pyz

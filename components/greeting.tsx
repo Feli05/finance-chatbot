@@ -1,6 +1,14 @@
 import { motion } from 'framer-motion';
 
-export const Greeting = () => {
+interface GreetingProps {
+  title?: string;
+  message?: string;
+}
+
+export const Greeting = ({ 
+  title = "Hello!", 
+  message = "Welcome to the Finance Chatbot!"
+}: GreetingProps) => {
   return (
     <div
       key="overview"
@@ -13,7 +21,7 @@ export const Greeting = () => {
         transition={{ delay: 0.5 }}
         className="text-2xl font-semibold"
       >
-        Hello!
+        {title}
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -22,7 +30,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-2xl text-zinc-500"
       >
-        Welcome to the Finance Chatbot!
+        {message}
       </motion.div>
     </div>
   );

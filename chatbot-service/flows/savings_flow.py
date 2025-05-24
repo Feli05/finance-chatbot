@@ -1,35 +1,35 @@
 from classes import Intent
 from classes import DialogueManager
-from utils.helpers import safe_access
+from utils.helpers import extract_intent_entities
 
 def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, answers: dict):
     flow_data = answers["flows"]["savings_flow"]["steps"]
-    # Check if step is within range
     if step >= len(flow_data):
         dialogue_manager.end_flow()
         return answers["fallback"]["step_out_of_range"]
     
+    entities = extract_intent_entities(intent)
+    has_yes = entities["has_yes"]
+    has_no = entities["has_no"]
+    combined_text = entities["combined_text"]
+    
     step_data = flow_data[step]
     
-    # First message after savings advice was requested
     if step == 0:
         dialogue_manager.next_flow_step()
-        simple_responses = [e for e in intent.entities if e.type == "simple_response"]
+        return step_data["initial_message"]
+    
+    elif step == 1:
+        dialogue_manager.next_flow_step()
         
-        # User said yes to discussing savings
-        if simple_responses and simple_responses[0].value == "yes":
+        if has_yes:
             return step_data["yes_response"]
         
-        # User said no to discussing savings
-        elif simple_responses and simple_responses[0].value == "no":
+        elif has_no:
             dialogue_manager.end_flow()
             return step_data["no_response"]
         
-        # User provided other information
         else:
-            text_entities = [e.value.lower() for e in intent.entities if e.type == "text"]
-            combined_text = " ".join(text_entities)
-            
             if "emergency" in combined_text or "short" in combined_text:
                 dialogue_manager.context["savings_goal"] = "emergency"
                 return step_data["emergency_response"]
@@ -41,34 +41,54 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
             else:
                 return step_data["default_response"]
     
-    # Second step in the savings conversation
-    elif step == 1:
+    elif step == 2:
         dialogue_manager.next_flow_step()
         savings_goal = dialogue_manager.context.get("savings_goal", "")
         
-        simple_responses = [e for e in intent.entities if e.type == "simple_response"]
-        
         if savings_goal == "emergency":
-            # User asked for emergency fund tips
-            if simple_responses and simple_responses[0].value == "yes":
-                return safe_access(step_data, "emergency", "yes_response")
+            if has_yes:
+                return step_data["emergency"]["yes_response"]
+            elif has_no:
+                dialogue_manager.end_flow()
+                return step_data["emergency"]["no_response"]
             else:
                 dialogue_manager.end_flow()
-                return safe_access(step_data, "emergency", "no_response")
+                return step_data["emergency"]["default_response"]
                 
         elif savings_goal == "retirement":
-            # User asked about retirement accounts
-            if simple_responses and simple_responses[0].value == "yes":
-                return safe_access(step_data, "retirement", "yes_response")
+            if has_yes:
+                return step_data["retirement"]["yes_response"]
+            elif has_no:
+                return step_data["retirement"]["no_response"]
             else:
-                return safe_access(step_data, "retirement", "no_response")
+                return step_data["retirement"]["default_response"]
                 
         else:
-            # Generic advice if we couldn't determine the goal
-            return step_data.get("default_response")
+            if has_yes:
+                dialogue_manager.next_flow_step()
+                return step_data["default_response"]
+            elif has_no:
+                dialogue_manager.end_flow()
+                return step_data["no_advice_response"]
+            else:
+                dialogue_manager.next_flow_step()
+                return step_data["default_response"]
     
-    # Third step in the savings conversation        
-    elif step == 2:
-        # End the flow after giving final advice
+    elif step == 3:
         dialogue_manager.end_flow()
-        return step_data.get("final_response") 
+        savings_goal = dialogue_manager.context.get("savings_goal", "")
+        
+        if savings_goal == "emergency":
+            if "budget" in combined_text or "breakdown" in combined_text or has_yes:
+                return step_data["emergency"]["budget_response"]
+            else:
+                return step_data["emergency"]["default_response"]
+                
+        elif savings_goal == "retirement":
+            if "account" in combined_text or "options" in combined_text or has_yes:
+                return step_data["retirement"]["options_response"]
+            else:
+                return step_data["retirement"]["default_response"]
+                
+        else:
+            return step_data["final_response"] 

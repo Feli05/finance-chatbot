@@ -2,30 +2,18 @@
     "intents": {
     "get_stock_price": "The current price of {ticker} is {price} USD. Would you like to know more about this stock's performance or market trends?",
     "greeting": "Hello! I'm your financial assistant. I can help you with various financial topics including investments, budgeting, savings, and more. What would you like to discuss today?",
-    "goodbye": "Thank you for chatting! Remember, I'm here whenever you need financial advice or information. Have a great day!",
+    "capabilities": "I'm your financial assistant! I can help you with: \n• Investment advice and stock prices\n• Budgeting and expense tracking\n• Savings strategies\n• Retirement planning\n• Debt management\n• Emergency funds\n• Interest rates and financial goals\nJust ask about any of these topics and I'll guide you through it!",
     "fallback": "I'm not sure I understand. Could you rephrase your question? I can help with topics like investments, budgeting, savings, retirement planning, and more.",
-    "ask_budget_advice": "I'd be happy to help you with budgeting! Could you tell me more about your financial goals and current situation? This will help me provide more specific advice.",
     "balance_inquiry": "To check your bank balance, you can access your online banking or mobile app. Many banks also offer balance alerts and spending tracking features. Would you like to know more about managing your accounts effectively?",
-    "investment_advice": "Investing wisely requires understanding your goals, risk tolerance, and time horizon. A diversified portfolio typically includes a mix of stocks, bonds, and other assets. Would you like to discuss specific investment strategies or learn more about different investment options?",
     "card_advice": "Credit cards can be powerful financial tools when used responsibly. Key tips: pay your balance in full each month, understand your interest rates, and take advantage of rewards programs. Would you like specific advice about choosing or managing credit cards?",
-    "savings_advice": "Building savings is crucial for financial security. I recommend: 1) Setting up automatic transfers, 2) Creating an emergency fund, 3) Setting specific savings goals. Would you like to discuss any of these strategies in detail?",
     "interest_rates": "Interest rates affect both your savings and borrowing costs. Currently, high-yield savings accounts offer better returns than traditional accounts. For loans, it's important to compare rates and understand the total cost. Would you like to know more about specific interest rate products?",
-    "budget_help": "Creating an effective budget involves: 1) Tracking all income and expenses, 2) Categorizing spending, 3) Setting realistic goals, 4) Regular review and adjustment. Would you like help with any of these steps?",
-    "general_help": "I can assist you with various financial topics including: budgeting, investing, saving, retirement planning, taxes, insurance, and debt management. What specific area would you like to learn more about?",
-    "gambling_warning": "I must advise against gambling as it can lead to significant financial losses. Instead, consider safer investment options like index funds or retirement accounts. Would you like to learn about responsible investment strategies?",
     "retirement_planning": "Planning for retirement is crucial. Consider: 1) Contributing to retirement accounts (401k, IRA), 2) Understanding Social Security benefits, 3) Creating a diversified investment strategy. Would you like to discuss any of these aspects in detail?",
-    "tax_advice": "Understanding taxes can help you save money. Key areas to consider: deductions, credits, retirement account contributions, and investment tax implications. Would you like specific information about any of these topics?",
-    "insurance_advice": "Insurance is essential for financial protection. Consider: health, life, auto, and home insurance based on your needs. Would you like to learn more about choosing the right coverage for your situation?",
     "debt_management": "Managing debt effectively involves: 1) Understanding interest rates, 2) Creating a repayment plan, 3) Prioritizing high-interest debt. Would you like to discuss strategies for reducing your debt?",
     "financial_goals": "Setting clear financial goals is the first step to success. Consider: short-term goals (emergency fund), medium-term goals (down payment), and long-term goals (retirement). Would you like help creating a plan for your specific goals?",
-    "market_analysis": "Market analysis involves understanding economic trends, company performance, and market indicators. Would you like to learn about specific market sectors or investment strategies?",
-    "financial_education": "Financial education is key to making informed decisions. I can help you learn about: budgeting, investing, saving, and more. What specific topic would you like to explore?",
     "emergency_fund": "An emergency fund is crucial for financial security. Aim to save 3-6 months of expenses in a liquid account. Would you like help creating a plan to build your emergency fund?",
-    "financial_health": "Financial health involves managing your money effectively. Key aspects include: budgeting, saving, investing, and debt management. Would you like to assess your financial health and create an improvement plan?",
     "investment_risk": "Understanding risk is crucial for investing. Consider your risk tolerance, investment timeline, and goals. Would you like to learn more about managing investment risk?",
-    "financial_planning": "Financial planning helps you achieve your goals. It involves: budgeting, saving, investing, and protecting your assets. Would you like to create a comprehensive financial plan?",
-    "wealth_building": "Building wealth requires a long-term strategy including: saving, investing, and managing debt. Would you like to discuss specific strategies for building wealth?",
-    "financial_products": "There are many financial products available. Understanding your needs and goals is key to choosing the right ones. Would you like to learn about specific financial products that might benefit you?"
+    "thanks": "You're welcome! I'm glad I could help. Is there anything else you'd like to know about your finances?",
+    "exit": "Thank you for choosing us as your financial adviser. We look forward to helping you achieve your financial goals in the future. Have a great day!"
     },
     "fallback": {
         "error_message": "I apologize for the confusion. Is there something else I can help you with?",
@@ -34,10 +22,11 @@
     },
     "flows": {
         "savings_flow": {
-            "description": "Flow for handling savings advice conversations",
             "steps": [
                 {
-                    "description": "Initial response to savings advice request",
+                    "initial_message": "Building savings is crucial for financial security. I recommend: 1) Setting up automatic transfers, 2) Creating an emergency fund, 3) Setting specific savings goals. Would you like to discuss any of these strategies in detail?"
+                },
+                {
                     "yes_response": "Perfect! Let's discuss your savings goals. Are you saving for short-term goals like an emergency fund, or longer-term goals like retirement?",
                     "no_response": "No problem. Is there something else I can help you with regarding your finances?",
                     "emergency_response": "Emergency funds are critical! Financial experts recommend saving 3-6 months of expenses. Would you like tips on building your emergency fund faster?",
@@ -45,7 +34,6 @@
                     "default_response": "I see. For effective savings, I need to understand your goals. Are you saving for something in the near future, or a long-term goal like retirement?"
                 },
                 {
-                    "description": "Response based on savings goal",
                     "emergency": {
                         "yes_response": "Great! To build your emergency fund faster: 1) Set up automatic transfers to savings, 2) Save your tax refunds and bonuses, 3) Cut unnecessary expenses and redirect that money to savings. Would you like a recommended budget breakdown?",
                         "no_response": "I understand. Let me know if you need any other financial advice in the future.",
@@ -56,135 +44,141 @@
                         "no_response": "Starting a retirement account is a great first step. Look into employer-sponsored plans like 401(k)s or individual options like IRAs. Would you like more specific advice?",
                         "default_response": "Excellent! Maximize employer matches, diversify investments, and increase contributions when possible."
                     },
-                    "default_response": "For effective saving, I recommend the 50/30/20 rule: 50% of income for needs, 30% for wants, and 20% for savings and debt repayment. Would you like more specific advice for your situation?"
+                    "default_response": "For effective saving, I recommend the 50/30/20 rule: 50% of income for needs, 30% for wants, and 20% for savings and debt repayment. Would you like more specific advice for your situation?",
+                    "no_advice_response": "No problem. Let me know if you need more savings advice in the future."
                 },
                 {
-                    "description": "Final advice for savings conversation",
-                    "final_response": "I hope this advice helps with your savings goals! Remember, consistency is key. Is there anything else I can help with regarding your finances?"
+                    "final_response": "I hope this advice helps with your savings goals! Remember, consistency is key. Is there anything else I can help with regarding your finances?",
+                    "emergency": {
+                        "budget_response": "For an emergency fund budget breakdown, allocate at least 10% of your monthly income directly to your emergency savings. For a 3-month fund, multiply your essential monthly expenses by 3 to find your target. Would you like more financial planning advice?",
+                        "default_response": "To maintain your emergency fund, regularly review and adjust your savings rate as your expenses change. Consider a high-yield savings account for better returns while keeping funds accessible. Is there anything else I can help with?"
+                    },
+                    "retirement": {
+                        "options_response": "There are several retirement account options: 401(k)s through employers offer tax advantages and potential matching contributions, while IRAs give you more investment control. Roth versions of both are funded with after-tax dollars but grow tax-free. Is there anything else I can help with?",
+                        "default_response": "I understand. Building your retirement savings is a great goal regardless of the specific account type. Is there anything else I can help with regarding your finances?"
+                    }
                 }
             ]
         },
         "investment_flow": {
-            "description": "Flow for handling investment advice conversations",
             "steps": [
                 {
-                    "description": "Initial response to investment advice request",
-                    "yes_response": "Excellent! For beginners, I recommend starting with index funds which offer broad market exposure with lower fees. Are you interested in stocks, bonds, or a mix of both?",
-                    "no_response": "No problem. Let me know if you have other financial questions in the future.",
-                    "stocks_response": "Stocks offer higher growth potential but with more volatility. For beginners, ETFs that track major indices like the S&P 500 are a good starting point. Would you like to know more about specific stock ETFs?",
-                    "stocks_percentage_response": "Allocating {percentage} to stocks can provide good growth potential but with increased volatility. For beginners, ETFs that track major indices like the S&P 500 are a good starting point. Would you like to know more about specific stock ETFs?",
-                    "bonds_response": "Bonds typically offer more stability and income than stocks, but with lower growth potential. They're good for preserving capital and generating income. Would you like to know more about bond investments?",
-                    "bonds_percentage_response": "Allocating {percentage} to bonds can provide stability and income in your portfolio. Bonds typically offer more stability than stocks, but with lower growth potential. Would you like to know more about bond investments?",
-                    "default_response": "I recommend a diversified portfolio with both stocks and bonds, with the ratio depending on your risk tolerance and time horizon. Would you like to know more about building a balanced portfolio?",
-                    "default_percentage_response": "A portfolio with {percentage} in stocks and {bond_percentage}% in bonds could be a reasonable mix, depending on your risk tolerance and time horizon. Would you like to know more about building a balanced portfolio?"
+                    "initial_message": "Investing wisely requires understanding your goals, risk tolerance, and time horizon. A diversified portfolio typically includes a mix of stocks, bonds, and other assets. Would you like to discuss specific investment strategies?"
                 },
                 {
-                    "description": "Response based on investment interest",
-                    "stocks": {
-                        "yes_response": "Popular stock ETFs include SPY (tracks S&P 500), QQQ (tracks Nasdaq-100), and VTI (total US stock market). These give you broad exposure with a single purchase. Would you like information on how to start investing in these?",
-                        "no_response": "No problem. Remember that diversification is key to managing risk. Let me know if you'd like information about other investment types in the future.",
-                        "default_response": "Popular stock ETFs include SPY, QQQ, and VTI for broad market exposure."
-                    },
-                    "bonds": {
-                        "yes_response": "Bond ETFs like AGG (total US bond market), BND (Vanguard total bond), or SCHZ (Schwab aggregate bond) are good starting points. They provide exposure to a variety of bonds in one investment. Would you like to know about different types of bonds?",
-                        "no_response": "No problem. Bonds can be a valuable part of a diversified portfolio. Feel free to ask if you have questions about bonds or other investments in the future.",
-                        "default_response": "Bond ETFs like AGG, BND, or SCHZ are good starting points."
-                    },
-                    "default": {
-                        "yes_response": "For a balanced portfolio, consider target-date funds which automatically adjust your stock/bond mix over time, or balanced ETFs. These provide diversification in a single investment. Would you like specific fund recommendations?",
-                        "no_response": "No problem. Remember that proper asset allocation based on your risk tolerance and time horizon is key to investment success. Let me know if you have other investment questions.",
-                        "default_response": "For a balanced portfolio, consider target-date funds or balanced ETFs."
+                    "timeframe_question": "Let's personalize your investment strategy. Are you looking to invest for short-term (less than 2 years), medium-term (2-5 years), or long-term (5+ years)?",
+                    "no_response": "No problem. Let me know if you have any other financial questions in the future."
+                },
+                {
+                    "risk_question": "Thank you. Now, how would you describe your risk tolerance? Low (conservative), medium (moderate), or high (aggressive)?"
+                },
+                {
+                    "goal_question": "What's your primary investment goal? (retirement, education, home purchase, or general wealth building)"
+                },
+                {
+                    "default_recommendation": "Based on your preferences, I recommend a balanced portfolio with a mix of stocks and bonds that aligns with your timeframe, risk tolerance, and goals. Consider consulting with a financial advisor for personalized advice.",
+                    "portfolio_recommendations": {
+                        "short_low_retirement": "For a short-term retirement goal with low risk tolerance, I recommend a portfolio of 80% short-term bonds, 10% Treasury Inflation-Protected Securities (TIPS), and 10% high-dividend stocks. Focus on capital preservation with ETFs like VTIP (Vanguard Short-Term TIPS) and SPTS (SPDR Portfolio Short Term Treasury ETF).",
+                        "short_low_education": "For short-term education savings with low risk, consider 85% short-term bonds and 15% money market funds. Look at funds like VGSH (Vanguard Short-Term Treasury ETF) or SHY (iShares 1-3 Year Treasury Bond ETF) to minimize volatility while preserving capital.",
+                        "short_low_home": "For a short-term home purchase with low risk, I recommend 70% short-term bonds, 20% high-yield savings, and 10% CD ladder. Use VMBS (Vanguard Mortgage-Backed Securities ETF) and ICSH (iShares Ultra Short-Term Bond ETF) to maintain liquidity while earning some return.",
+                        "short_low_wealth": "For short-term wealth building with low risk, consider 75% short-term bonds, 15% blue-chip dividend stocks, and 10% cash equivalents. Look at BSV (Vanguard Short-Term Bond ETF) and SPLG (SPDR Portfolio S&P 500 ETF) for stable value with some growth potential.",
+                        
+                        "short_medium_retirement": "For a short-term retirement strategy with moderate risk, consider 60% bonds, 30% large-cap stocks, and 10% REITs. ETFs like VGIT (Vanguard Intermediate-Term Treasury ETF) and VYM (Vanguard High Dividend Yield ETF) provide a balance of income and modest growth potential.",
+                        "short_medium_education": "For short-term education funding with moderate risk, try 70% short-term bonds, 20% large-cap stocks, and 10% international stocks. Look at funds like SCHZ (Schwab U.S. Aggregate Bond ETF) and VTI (Vanguard Total Stock Market ETF).",
+                        "short_medium_home": "For a short-term home purchase with moderate risk, consider 65% short-term bonds, 20% dividend stocks, and 15% REITs. ETFs like VCSH (Vanguard Short-Term Corporate Bond ETF) and VNQ (Vanguard Real Estate ETF) can help grow your down payment with managed risk.",
+                        "short_medium_wealth": "For short-term wealth building with moderate risk, I suggest 50% bonds, 40% stocks, and 10% alternatives. Consider BND (Vanguard Total Bond Market ETF) and VOO (Vanguard S&P 500 ETF) as core holdings.",
+                        
+                        "short_high_retirement": "For short-term retirement funding with high risk tolerance, consider 40% bonds and 60% growth stocks. Look at IWF (iShares Russell 1000 Growth ETF) and QQQ (Invesco QQQ Trust) for aggressive growth potential, balanced with VGIT (Vanguard Intermediate-Term Treasury ETF).",
+                        "short_high_education": "For short-term education savings with high risk tolerance, try 30% bonds, 60% stocks, and 10% sector ETFs. Funds like VGT (Vanguard Information Technology ETF) and ARKK (ARK Innovation ETF) offer growth potential, balanced with BND (Vanguard Total Bond Market ETF).",
+                        "short_high_home": "For a short-term home purchase with high risk tolerance, consider 40% bonds, 50% growth stocks, and 10% REITs. Look at VUG (Vanguard Growth ETF) and MTUM (iShares MSCI USA Momentum Factor ETF) for aggressive growth.",
+                        "short_high_wealth": "For short-term wealth building with high risk, I recommend 30% bonds and 70% growth stocks. Consider VTI (Vanguard Total Stock Market ETF), QQQM (Invesco NASDAQ 100 ETF), and targeted sector ETFs like VHT (Vanguard Health Care ETF).",
+                        
+                        "medium_low_retirement": "For medium-term retirement planning with low risk, consider 70% bonds and 30% dividend stocks. Focus on funds like BND (Vanguard Total Bond Market ETF) and VYM (Vanguard High Dividend Yield ETF) for stable growth and income.",
+                        "medium_low_education": "For medium-term education funding with low risk, try 60% intermediate bonds, 30% blue-chip stocks, and 10% TIPS. ETFs like SCHR (Schwab Intermediate-Term U.S. Treasury ETF) and SCHD (Schwab U.S. Dividend Equity ETF) provide stability with some growth.",
+                        "medium_low_home": "For a medium-term home purchase with low risk, consider 65% bonds, 25% large-cap stocks, and 10% REITs. Look at VMBS (Vanguard Mortgage-Backed Securities ETF) and VIG (Vanguard Dividend Appreciation ETF) for stable value growth.",
+                        "medium_low_wealth": "For medium-term wealth building with low risk, I suggest 60% bonds, 35% dividend stocks, and 5% gold. BIV (Vanguard Intermediate-Term Bond ETF) and HDV (iShares Core High Dividend ETF) can provide a solid foundation.",
+                        
+                        "medium_medium_retirement": "For medium-term retirement savings with moderate risk, consider 50% bonds and 50% stocks. A mix of BND (Vanguard Total Bond Market ETF), VTI (Vanguard Total Stock Market ETF), and VXUS (Vanguard Total International Stock ETF) provides balanced exposure.",
+                        "medium_medium_education": "For medium-term education funding with moderate risk, try 50% bonds, 40% stocks, and 10% REITs. ETFs like IGSB (iShares Short-Term Corporate Bond ETF), VTI (Vanguard Total Stock Market ETF), and VNQ (Vanguard Real Estate ETF) offer a balanced approach.",
+                        "medium_medium_home": "For a medium-term home purchase with moderate risk, consider 45% bonds, 45% stocks, and 10% REITs. Look at ITOT (iShares Core S&P Total US Stock Market ETF) and AGG (iShares Core US Aggregate Bond ETF) as core holdings.",
+                        "medium_medium_wealth": "For medium-term wealth building with moderate risk, I recommend 40% bonds, 50% stocks, and 10% alternatives. VOO (Vanguard S&P 500 ETF), VGIT (Vanguard Intermediate-Term Treasury ETF), and small allocations to GLDM (SPDR Gold MiniShares Trust) provide diversification.",
+                        
+                        "medium_high_retirement": "For medium-term retirement growth with high risk tolerance, consider 30% bonds and 70% stocks. Focus on VUG (Vanguard Growth ETF), VGT (Vanguard Information Technology ETF), and some IJH (iShares Core S&P Mid-Cap ETF) for aggressive growth potential.",
+                        "medium_high_education": "For medium-term education savings with high risk tolerance, try 25% bonds, 65% stocks, and 10% emerging markets. Look at VWO (Vanguard FTSE Emerging Markets ETF) and VONG (Vanguard Russell 1000 Growth ETF) for higher growth potential.",
+                        "medium_high_home": "For a medium-term home purchase with high risk tolerance, consider 30% bonds, 60% growth stocks, and 10% REITs. ETFs like MTUM (iShares MSCI USA Momentum Factor ETF) and SCHG (Schwab U.S. Large-Cap Growth ETF) can accelerate your down payment growth.",
+                        "medium_high_wealth": "For medium-term wealth building with high risk, I suggest 20% bonds and 80% stocks, including international exposure. VTI (Vanguard Total Stock Market ETF), VXUS (Vanguard Total International Stock ETF), and targeted sector ETFs can maximize growth potential.",
+                        
+                        "long_low_retirement": "For long-term retirement planning with low risk, consider 60% bonds, 35% stocks, and 5% gold. Focus on funds like BND (Vanguard Total Bond Market ETF), VYM (Vanguard High Dividend Yield ETF), and IAU (iShares Gold Trust) for stability with moderate growth.",
+                        "long_low_education": "For long-term education funding with low risk, try 50% bonds, 40% dividend stocks, and 10% REITs. ETFs like VCIT (Vanguard Intermediate-Term Corporate Bond ETF), SCHD (Schwab U.S. Dividend Equity ETF), and VNQ (Vanguard Real Estate ETF) provide stable growth.",
+                        "long_low_home": "For a long-term home purchase with low risk, consider 55% bonds, 40% blue-chip stocks, and 5% REITs. Look at AGG (iShares Core US Aggregate Bond ETF), VIG (Vanguard Dividend Appreciation ETF), and VNQ (Vanguard Real Estate ETF) for steady growth.",
+                        "long_low_wealth": "For long-term wealth building with low risk, I suggest 50% bonds, 45% dividend stocks, and 5% gold. BND (Vanguard Total Bond Market ETF), NOBL (ProShares S&P 500 Dividend Aristocrats ETF), and a small allocation to IAU (iShares Gold Trust) provide diversification.",
+                        
+                        "long_medium_retirement": "For long-term retirement with moderate risk, consider 40% bonds and 60% stocks. A mix of BND (Vanguard Total Bond Market ETF), VTI (Vanguard Total Stock Market ETF), and VXUS (Vanguard Total International Stock ETF) provides balanced growth potential over time.",
+                        "long_medium_education": "For long-term education funding with moderate risk, try 35% bonds, 60% stocks, and 5% alternatives. ETFs like AGG (iShares Core US Aggregate Bond ETF), VOO (Vanguard S&P 500 ETF), and VTEB (Vanguard Tax-Exempt Bond ETF) offer tax-efficient growth.",
+                        "long_medium_home": "For a long-term home purchase with moderate risk, consider 30% bonds and 70% stocks. Look at ITOT (iShares Core S&P Total US Stock Market ETF), IXUS (iShares Core MSCI Total International Stock ETF), and AGG (iShares Core US Aggregate Bond ETF).",
+                        "long_medium_wealth": "For long-term wealth building with moderate risk, I recommend 30% bonds and 70% stocks with global diversification. VTI (Vanguard Total Stock Market ETF), VXUS (Vanguard Total International Stock ETF), and BND (Vanguard Total Bond Market ETF) provide a strong foundation.",
+                        
+                        "long_high_retirement": "For long-term retirement growth with high risk tolerance, consider 20% bonds and 80% stocks. Focus on VTI (Vanguard Total Stock Market ETF), VUG (Vanguard Growth ETF), and VXUS (Vanguard Total International Stock ETF) for maximum growth potential over decades.",
+                        "long_high_education": "For long-term education savings with high risk tolerance, try 15% bonds, 75% stocks, and 10% emerging markets. Look at VWO (Vanguard FTSE Emerging Markets ETF), QQQ (Invesco QQQ Trust), and a small bond allocation for aggressive growth.",
+                        "long_high_home": "For a long-term home purchase with high risk tolerance, consider 15% bonds and 85% growth-oriented stocks. ETFs like SPYG (SPDR Portfolio S&P 500 Growth ETF), VGT (Vanguard Information Technology ETF), and VB (Vanguard Small-Cap ETF) maximize long-term appreciation.",
+                        "long_high_wealth": "For long-term wealth building with high risk, I suggest 10% bonds and 90% stocks, including growth, value, and international exposure. VTI (Vanguard Total Stock Market ETF), VXUS (Vanguard Total International Stock ETF), and sectoral ETFs like VGT (Vanguard Information Technology ETF) can maximize growth potential."
                     }
-                },
-                {
-                    "description": "Final advice for investment conversation",
-                    "final_response": "I hope this helps with your investment decisions! Remember that investing is for the long term, and consistency often matters more than timing. Is there anything else I can help with?"
                 }
             ]
         },
         "balance_flow": {
-            "description": "Flow for handling balance inquiry conversations",
             "steps": [
                 {
-                    "description": "Initial response to balance inquiry",
                     "yes_response": "Great! To manage your accounts effectively, I recommend: 1) Setting up automatic alerts for low balances, 2) Reviewing your accounts weekly, 3) Using tools that categorize your spending. Would you like more specific advice on any of these areas?",
                     "no_response": "No problem. Let me know if you have other financial questions.",
                     "default_response": "I understand. Managing your accounts is important for financial health. Feel free to ask specific questions about budgeting or account management anytime."
                 },
                 {
-                    "description": "Response based on account management interest",
                     "alerts_response": "Setting up balance alerts is easy! Most banking apps let you set thresholds like 'notify me when balance drops below $500.' This helps avoid overdrafts and keeps you aware of your finances. Is there a specific bank you use?",
                     "review_response": "Weekly account reviews are crucial. Set aside 15 minutes each week to check transactions, look for errors, and ensure your spending aligns with your budget. Many banks offer spending summaries to make this easier. Do you currently review your accounts regularly?",
                     "categorize_response": "Tools like Mint, YNAB, or even your bank's mobile app can automatically categorize spending to show where your money goes. This helps identify areas to cut back. Have you tried any budgeting apps before?",
                     "default_response": "For effective account management, consistent monitoring and planning are key. Start with weekly reviews and automated alerts, then consider using budgeting tools for deeper insights. Let me know if you have more specific questions!"
                 },
                 {
-                    "description": "Final advice for balance conversation",
                     "final_response": "I hope this information helps you manage your accounts more effectively! Maintaining awareness of your finances is the first step toward financial freedom. Is there anything else I can help with?"
                 }
             ]
         },
         "stock_flow": {
-            "description": "Flow for handling stock price conversations",
             "steps": [
                 {
-                    "description": "Initial response after providing stock price",
                     "yes_response": "{ticker} has shown strong performance recently with a positive trend in the last quarter. The company reported earnings above expectations. Would you like to know about analyst recommendations for {ticker}?",
                     "no_response": "No problem. Let me know if you want to check any other stock prices or have other financial questions.",
                     "default_response": "I've provided the current price for {ticker}. If you'd like more detailed analysis or information about other stocks, just let me know."
                 },
                 {
-                    "description": "Response about analyst recommendations",
                     "yes_response": "Analysts currently have mixed opinions on {ticker}. Some see growth potential based on upcoming product launches, while others are concerned about market competition. The average price target is about 15% above the current price. Would you like to know about the risks associated with this stock?",
                     "default_response": "I understand. Remember that stock prices fluctuate and past performance doesn't guarantee future results. Let me know if you have other questions about {ticker} or other stocks."
                 },
                 {
-                    "description": "Final advice about stock risks",
                     "final_response": "The main risks for {ticker} include market competition, regulatory challenges, and general market volatility. Always consider your investment timeframe and risk tolerance before investing. Is there anything else you'd like to know about investing?"
                 }
             ]
         },
         "budget_flow": {
-            "description": "Flow for handling budget advice conversations",
             "steps": [
                 {
-                    "description": "Initial response to budget advice request",
-                    "saving_response": "Saving is an excellent goal! The 50/30/20 rule is a good starting point: 50% for necessities, 30% for wants, and 20% for savings. Would you like to know more about this approach?",
-                    "saving_amount_response": "Great! If you want to save {budget_amount}, let's create a plan. The 50/30/20 rule is a good starting point: 50% for necessities, 30% for wants, and 20% for savings. Would you like a more detailed breakdown?",
-                    "debt_response": "Paying off debt is a smart financial decision. I recommend using either the avalanche method (paying off highest interest first) or the snowball method (paying off smallest debts first). Which approach sounds more appealing to you?",
-                    "emergency_response": "Building an emergency fund is crucial! Aim for 3-6 months of expenses. Would you like some tips to build this fund more quickly?",
-                    "yes_response": "Great! Let's talk about your budget. First, what's your primary financial goal right now? Are you trying to save money, pay off debt, or create an emergency fund?",
-                    "no_response": "No problem. If you need budgeting advice in the future, just let me know.",
-                    "default_response": "To create an effective budget, let's start with your financial goals. Are you trying to save for something specific, pay off debt, or build an emergency fund?"
+                    "initial_greeting": "I'd be happy to help you with budgeting! What's your main financial goal: saving for something specific, paying off debt, or building an emergency fund?",
+                    "amount_greeting": "I see you're looking to budget {budget_amount}. What's your main financial goal for this money: saving, paying off debt, or building an emergency fund?"
                 },
                 {
-                    "description": "Response based on budget goal",
-                    "saving": {
-                        "yes_response": "Here's a more detailed breakdown: From your income, allocate 50% to needs (rent, utilities, groceries), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment. Track all expenses for a month to see where your money goes. Would you like specific expense-tracking tools recommendations?",
-                        "no_response": "The 50/30/20 rule provides a simple framework to manage your finances. Adjust percentages based on your specific situation and goals. Is there anything else I can help with?",
-                        "default_response": "Allocate 50% to needs, 30% to wants, and 20% to savings and debt repayment."
-                    },
-                    "debt": {
-                        "avalanche_response": "The avalanche method is mathematically optimal. List all debts by interest rate, make minimum payments on all, and put extra money toward the highest-interest debt. Would you like a tool recommendation to help manage this approach?",
-                        "snowball_response": "The snowball method is great for motivation. List debts from smallest to largest balance, make minimum payments on all, and put extra money toward the smallest debt. Would you like a tool recommendation to help manage this approach?",
-                        "default_response": "Both avalanche and snowball methods work well. Avalanche saves more money long-term by targeting high-interest debt first. Snowball provides quick wins by eliminating small debts first, which can be motivating. Which method interests you more?"
-                    },
-                    "emergency": {
-                        "yes_response": "To build an emergency fund faster: 1) Set up automatic transfers to savings on payday, 2) Save all unexpected income (tax refunds, bonuses), 3) Cut unnecessary expenses temporarily and redirect that money to savings. Would you like to know about high-yield savings accounts for your emergency fund?",
-                        "no_response": "Having an emergency fund is essential for financial security. Aim to save a small amount consistently until you reach your goal. Is there anything else I can help with?",
-                        "default_response": "To build an emergency fund faster, set up automatic transfers."
-                    },
-                    "default_response": "Creating a budget starts with tracking all income and expenses for a month. Once you know where your money is going, you can make informed decisions about where to cut back. Would you like some recommendations for budgeting tools to help with this?"
+                    "saving_response": "For saving money, I recommend using the 50/30/20 rule: 50% for needs, 30% for wants, and 20% for savings. Would you like specific tips on how to track your spending or recommendations for budget tools?",
+                    "debt_response": "For paying off debt, focus on: 1) Listing all debts with interest rates, 2) Paying minimums on all debts, 3) Putting extra money toward high-interest debt first. Would you like recommendations for debt payoff tools?",
+                    "emergency_response": "For your emergency fund, aim for 3-6 months of expenses. Set up automatic transfers to savings and save windfalls like tax refunds. Would you like to know about high-yield savings accounts for better returns?",
+                    "default_response": "I understand. To create a basic budget: 1) Track all income and expenses, 2) Categorize spending, 3) Identify areas to cut back, 4) Set specific financial goals. Would you like recommendations for budget tracking tools?"
                 },
                 {
-                    "description": "Final advice based on budget goal",
-                    "saving_final": "Great tools for expense tracking include Mint, YNAB (You Need A Budget), or even a simple spreadsheet. The key is consistency in tracking and reviewing your spending regularly. Is there anything else I can help with?",
-                    "debt_final": "Apps like Debt Payoff Planner or Undebt.it can help you implement either the avalanche or snowball method. They provide visual progress tracking which can be motivating. Remember, consistency is key to becoming debt-free. Is there anything else I can help with?",
-                    "emergency_final": "High-yield savings accounts at online banks typically offer better interest rates than traditional banks, helping your emergency fund grow faster. Look for accounts with no monthly fees and easy access in emergencies. Is there anything else I can help with?",
-                    "default_final": "Remember that a budget is a living document that should be adjusted as your income and expenses change. Review it regularly and make adjustments as needed. Is there anything else I can help with regarding your finances?"
+                    "tool_response": "Great tools for budgeting include Mint, YNAB (You Need A Budget), or even a simple spreadsheet. The key is consistency in tracking and reviewing your spending regularly. Is there anything else I can help with?",
+                    "account_response": "High-yield savings accounts at online banks typically offer better interest rates than traditional banks. Look for accounts with no monthly fees and easy access in emergencies. Is there anything else I can help with?",
+                    "final_response": "Remember that a budget is a living document that should be adjusted as your income and expenses change. Review it regularly and make adjustments as needed. Is there anything else I can help with regarding your finances?",
+                    "default_response": "I hope this budgeting advice helps! Consistency is key to financial success. Is there anything else I can help with?"
                 }
             ]
         }
     }
 }
-  
