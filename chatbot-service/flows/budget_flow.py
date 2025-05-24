@@ -27,10 +27,6 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
         return response
     
     elif step == 1:
-        if has_no:
-            dialogue_manager.end_flow()
-            return "No problem. Let me know if you need budgeting advice in the future."
-            
         if "save" in combined_text or "saving" in combined_text:
             dialogue_manager.context["budget_goal"] = "saving"
             dialogue_manager.next_flow_step()
@@ -53,14 +49,14 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
     
     elif step == 2:
         dialogue_manager.end_flow()
+        budget_goal = dialogue_manager.context.get("budget_goal", "general")
         
-        if has_yes or "tool" in combined_text or "app" in combined_text:
-            return step_data["tool_response"]
-            
-        elif "account" in combined_text or "bank" in combined_text or "saving" in combined_text:
-            return step_data["account_response"]
-            
-        elif "budget_goal" in dialogue_manager.context:
+        if has_yes:
+            if budget_goal == "emergency":
+                return step_data["account_response"]
+            else:
+                return step_data["tool_response"]
+        elif has_no:
             return step_data["final_response"]
-            
-        return step_data["default_response"] 
+        else:
+            return step_data["default_response"] 

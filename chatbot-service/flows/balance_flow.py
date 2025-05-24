@@ -1,6 +1,6 @@
 from classes import Intent
 from classes import DialogueManager
-from utils.helpers import safe_access
+from utils.helpers import extract_intent_entities
 
 def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, answers: dict):
     flow_data = answers["flows"]["balance_flow"]["steps"]
@@ -8,25 +8,30 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
         dialogue_manager.end_flow()
         return answers["fallback"]["step_out_of_range"]
         
+    entities = extract_intent_entities(intent)
+    combined_text = entities["combined_text"]
+    has_yes = entities["has_yes"]
+    has_no = entities["has_no"]
+    
     step_data = flow_data[step]
     
     if step == 0:
         dialogue_manager.next_flow_step()
-        simple_responses = [e for e in intent.entities if e.type == "simple_response"]
+        return step_data["initial_message"]
+    
+    elif step == 1:
+        dialogue_manager.next_flow_step()
         
-        if simple_responses and simple_responses[0].value == "yes":
+        if has_yes:
             return step_data["yes_response"]
-        elif simple_responses and simple_responses[0].value == "no":
+        elif has_no:
             dialogue_manager.end_flow()
             return step_data["no_response"]
         else:
             return step_data["default_response"]
     
-    elif step == 1:
-        dialogue_manager.next_flow_step()
-        
-        text_entities = [e.value.lower() for e in intent.entities if e.type == "text"]
-        combined_text = " ".join(text_entities)
+    elif step == 2:
+        dialogue_manager.end_flow()
         
         if "alert" in combined_text:
             return step_data["alerts_response"]
@@ -35,8 +40,4 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
         elif "categor" in combined_text or "track" in combined_text:
             return step_data["categorize_response"]
         else:
-            return step_data["default_response"]
-    
-    elif step == 2:
-        dialogue_manager.end_flow()
-        return step_data["final_response"] 
+            return step_data["default_response"] 

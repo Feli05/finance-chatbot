@@ -58,6 +58,10 @@ class DialogueManager:
         if self.current_flow:
             self.flow_step += 1
             
+    def reset_flow_step(self, step):
+        if self.current_flow:
+            self.flow_step = step
+            
     def get_flow_state(self):
         return {
             'flow': self.current_flow,

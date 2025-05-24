@@ -24,6 +24,7 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
             dialogue_manager.end_flow()
             return step_data["no_response"]
         
+        dialogue_manager.next_flow_step()
         return step_data["timeframe_question"]
     
     elif step == 2:
@@ -45,24 +46,10 @@ def handle_flow(intent: Intent, dialogue_manager: DialogueManager, step: int, an
         else:
             dialogue_manager.context["risk_tolerance"] = "medium"
             
-        dialogue_manager.next_flow_step()
-        return step_data["goal_question"]
-    
-    elif step == 4:
-        if "retirement" in combined_text:
-            dialogue_manager.context["investment_goal"] = "retirement"
-        elif "education" in combined_text or "college" in combined_text:
-            dialogue_manager.context["investment_goal"] = "education"
-        elif "home" in combined_text or "house" in combined_text:
-            dialogue_manager.context["investment_goal"] = "home"
-        else:
-            dialogue_manager.context["investment_goal"] = "wealth"
-        
         timeframe = dialogue_manager.context.get("investment_timeframe", "medium")
         risk = dialogue_manager.context.get("risk_tolerance", "medium")
-        goal = dialogue_manager.context.get("investment_goal", "wealth")
         
-        response_key = f"{timeframe}_{risk}_{goal}"
+        response_key = f"{timeframe}_{risk}"
         
         dialogue_manager.end_flow()
         

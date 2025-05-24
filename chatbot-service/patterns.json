@@ -53,10 +53,6 @@
             "keywords": ["emergency", "emergency fund", "rainy day", "backup", "safety net", "reserve", "cushion", "buffer", "protection", "security"]
         },
         {
-            "intent": "investment_risk",
-            "keywords": ["risk", "volatility", "uncertainty", "exposure", "tolerance", "appetite", "management", "mitigation", "assessment", "evaluation", "measure"]
-        },
-        {
             "intent": "thanks",
             "keywords": ["thanks", "thank you", "appreciate", "grateful", "thank", "thx", "thankyou", "ty"]
         },
@@ -65,28 +61,18 @@
             "keywords": ["exit"]
         }
     ],
-    "common_words": [
-        "a", "an", "the", "of", "in", "on", "at", "by", "to", "for", "with", 
-        "and", "or", "is", "are", "was", "were", "be", "been", "being", 
-        "have", "has", "had", "do", "does", "did", "but", "if", "then", 
-        "else", "when", "where", "why", "how", "all", "any", "both", "each", 
-        "few", "more", "most", "other", "some", "such", "no", "nor", "not", 
-        "only", "own", "same", "so", "than", "too", "very", "can", "will", 
-        "just", "should", "now"
-    ],
     "yes_responses": [
         "yes", "yeah", "sure", "ok", "okay", "yep", "correct", "true", "si", 
-        "indeed", "absolutely", "definitely", "certainly", "right"
+        "indeed", "absolutely", "definitely", "certainly"
     ],
     "yes_phrases": [
-        "like to know more", "i would", "tell me more", "sounds good", 
-        "that works", "go ahead", "please do"
+        "sounds good", "that works", "go ahead", "yes, please", "yes, go ahead"
     ],
     "no_responses": [
-        "no", "nope", "not", "false", "incorrect", "nah", "never"
+        "no", "nope", "not", "false", "incorrect", "nah"
     ],
     "no_phrases": [
         "not interested", "don't want", "do not want", "no thanks", 
-        "i'm good", "pass", "let's move on"
+        "i'm good", "pass", "let's move on", "actually no", "actually, no"
     ]
 }
