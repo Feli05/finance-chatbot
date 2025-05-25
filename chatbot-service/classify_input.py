@@ -40,10 +40,6 @@ def extract_amounts(text: str):
     matches = re.findall(r'\$\d+(?:\.\d{1,2})?', text)
     return [Entity("amount", m, 1.0) for m in matches]
 
-def extract_percentages(text: str):
-    matches = re.findall(r'\d+(?:\.\d{1,2})?%', text)
-    return [Entity("percentage", m, 1.0) for m in matches]
-
 def extract_simple_response(text: str):
     text = text.lower().strip()
 
@@ -74,7 +70,6 @@ def extract_entities(text: str):
     entities = []
     entities.extend(extract_tickers(text))
     entities.extend(extract_amounts(text))
-    entities.extend(extract_percentages(text))
     entities.extend(extract_simple_response(text))
     if not entities:
         entities.append(Entity("text", text, 0.5))

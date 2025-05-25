@@ -12,7 +12,6 @@ class Intent:
         self.confidence = confidence
         self.entities = entities
 
-
 class DialogueManager:
     def __init__(self):
         self.history = []  
@@ -29,26 +28,13 @@ class DialogueManager:
         self._update_context(intent)
 
     def _update_context(self, intent: Intent):
-        # Store last mentioned tickers
         tickers = [e.value for e in intent.entities if e.type == "ticker"]
         if tickers:
             self.context["last_tickers"] = tickers
 
-        # Store last mentioned amount
         amounts = [e.value for e in intent.entities if e.type == "amount"]
         if amounts:
             self.context["last_amount"] = amounts[-1]
-            
-        # Store last mentioned percentage
-        percentages = [e.value for e in intent.entities if e.type == "percentage"]
-        if percentages:
-            self.context["last_percentage"] = percentages[-1]
-
-    def get_context(self):
-        return self.context
-
-    def last_intent(self):
-        return self.history[-1][0] if self.history else None
         
     def start_flow(self, flow_name):
         self.current_flow = flow_name

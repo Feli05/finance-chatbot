@@ -16,7 +16,6 @@ def get_question():
     data = request.json
     message = data.get('message')
 
-    # Process message and return response to web service
     intent = detect_intent(message)
     dialogue_manager.update(intent)
     response_message = generate_response(intent, dialogue_manager)
