@@ -13,9 +13,7 @@
     "exit": "Thank you for choosing us as your financial adviser. We look forward to helping you achieve your financial goals in the future. Have a great day!"
     },
     "fallback": {
-        "error_message": "I apologize for the confusion. Is there something else I can help you with?",
-        "step_out_of_range": "I apologize, but I've lost track of our conversation. Is there something else I can help you with?",
-        "json_load_error": "I'm not sure I understand. Could you rephrase your question?"
+        "step_out_of_range": "I apologize, but I've lost track of our conversation. Is there something else I can help you with?"
     },
     "flows": {
         "savings_flow": {
