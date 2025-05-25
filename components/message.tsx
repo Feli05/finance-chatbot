@@ -3,7 +3,7 @@
 import type { UIMessage } from 'ai';
 import { AnimatePresence, motion } from 'framer-motion';
 import { memo } from 'react';
-import { SparklesIcon } from './icons';
+import { AssistantIcon } from './icons';
 import { MessageActions } from './message-actions';
 import { cn } from '@/lib/utils';
 
@@ -36,7 +36,7 @@ const PurePreviewMessage = ({
           {message.role === 'assistant' && (
             <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border bg-background">
               <div className="translate-y-px">
-                <SparklesIcon size={14} />
+                <AssistantIcon size={14} />
               </div>
             </div>
           )}
